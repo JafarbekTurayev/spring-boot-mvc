@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/department")
 public class DeparmentController {
 
+
     @Autowired
     DepartmentService departmentService;
     @Autowired
