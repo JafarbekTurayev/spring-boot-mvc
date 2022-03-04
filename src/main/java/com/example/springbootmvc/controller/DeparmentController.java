@@ -17,14 +17,17 @@ public class DeparmentController {
 
     @Autowired
     DepartmentService departmentService;
+
     @Autowired
     DepartmentRepository departmentRepository;
+
     @Autowired
     CompanyRepository companyRepository;
 
+
     //zaproslarni tutib ishlatish
-//    @RequestMapping(method = RequestMethod.GET)
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
+//    @GetMapping
     public String getDepartmentPage(Model model) {
 
         model.addAttribute("list", departmentRepository.findAll());
