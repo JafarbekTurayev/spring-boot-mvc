@@ -65,7 +65,7 @@ public class DeparmentController {
     public String editPage(@PathVariable Integer id, Model model) {
 
         Optional<Department> optionalDepartment = departmentRepository.findById(id);
-        if (optionalDepartment.isEmpty()) return "Xatolik!";
+        if (!optionalDepartment.isPresent()) return "Xatolik!";
 
 //        departmentRepository.getById()
         model.addAttribute("edited", optionalDepartment.get());
