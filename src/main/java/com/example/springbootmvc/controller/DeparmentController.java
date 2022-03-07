@@ -1,5 +1,6 @@
 package com.example.springbootmvc.controller;
 
+import com.example.springbootmvc.dto.ApiResponse;
 import com.example.springbootmvc.dto.DepartmentDTO;
 import com.example.springbootmvc.entity.Department;
 import com.example.springbootmvc.repository.CompanyRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @Controller
@@ -56,4 +59,26 @@ public class DeparmentController {
         departmentRepository.deleteById(id);
         return "redirect:/department";
     }
+
+
+    @GetMapping("/edit/{id}")
+    public String editPage(@PathVariable Integer id, Model model) {
+
+        Optional<Department> optionalDepartment = departmentRepository.findById(id);
+        if (optionalDepartment.isEmpty()) return "Xatolik!";
+
+//        departmentRepository.getById()
+        model.addAttribute("edited", optionalDepartment.get());
+        model.addAttribute("companyList", companyRepository.findAll());
+        return "department/department-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editDepartment(@PathVariable Integer id, @ModelAttribute DepartmentDTO departmentDTO) {
+        ApiResponse response = departmentService.edit(id, departmentDTO);
+        System.out.println(response);
+        return "redirect:/department";
+    }
+
+
 }
